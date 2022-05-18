@@ -1,0 +1,50 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 32px;
+  color: black;
+  background-color: orange;
+}
+
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.sketch-box {
+  width: clamp(300px, 500px, 700px);
+  height: clamp(300px, 500px, 700px);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-container {
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  /* flex-basis: 1; */
+}
+
+.cell-row {
+  display: flex;
+  flex: 1;
+}
+
+.cell {
+  border: 1px solid black;
+  flex: 1;
+}
