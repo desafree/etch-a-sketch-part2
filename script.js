@@ -1,9 +1,9 @@
 const box = (function () {
   const sketchBox = document.querySelector(".sketch-box");
 
-  let box = {};
+  let obj = {};
 
-  box.generateBox = function (size) {
+  obj.generateBox = function (size) {
     if (
       typeof Number(size) != "number" ||
       Number(size) > 100 ||
@@ -15,7 +15,7 @@ const box = (function () {
     for (let i = 0; i < size; i++) {
       const cellRow = document.createElement("div");
       cellRow.classList.add("cell-row");
-      for (let i = 0; i < size; i++) {
+      for (let l = 0; l < size; l++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
         cellRow.appendChild(cell);
@@ -25,12 +25,11 @@ const box = (function () {
     sketchBox.appendChild(boxContainer);
   };
 
-  box.removeBox = function () {
-    const boxContainer = document.querySelector(".box-container");
-    boxContainer.remove();
+  obj.removeBox = function () {
+    document.querySelector(".box-container").remove();
   };
 
-  box.addListeners = function (callback) {
+  obj.addListeners = function (callback) {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.addEventListener("mouseenter", (e) => {
@@ -39,30 +38,35 @@ const box = (function () {
     });
   };
 
-  return box;
+  return obj;
 })();
 
 const pen = (function () {
+  let obj = {};
+
   let GRADIENT = 0;
+  let gradientCount = 0;
   let RAINBOW = 0;
+  let ERASER = 0;
   let color = "#000000";
-  let times = 0;
 
   function randomColor() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   }
 
-  let obj = {};
   obj.getColor = function () {
     if (RAINBOW == 1) {
       color = randomColor();
     }
     if (GRADIENT == 1) {
-      times++;
-      if (times > 100) {
-        times = 0;
+      gradientCount++;
+      if (gradientCount > 100) {
+        gradientCount = 0;
       }
-      color = `hsl(100, 0%,${times}%`;
+      color = `hsl(100, 0%,${gradientCount}%`;
+    }
+    if (ERASER == 1) {
+      color = "#ffffff";
     }
     return color;
   };
@@ -70,6 +74,7 @@ const pen = (function () {
   obj.reset = function () {
     GRADIENT = 0;
     RAINBOW = 0;
+    ERASER = 0;
   };
 
   obj.setGradient = function () {
@@ -87,14 +92,25 @@ const pen = (function () {
     color = "#000000";
   };
 
+  obj.setEraser = function () {
+    obj.reset();
+    ERASER = 1;
+  };
+
   return obj;
 })();
 
 box.generateBox(16);
 box.addListeners(pen.getColor);
 
-const range = document.querySelector("input[type=range]");
-range.addEventListener("change", (e) => {
+const rangeInput = document.querySelector("input[type=range]");
+rangeInput.addEventListener("change", (e) => {
+  if (
+    typeof Number(e.target.value) !== "number" ||
+    Number(e.target.value) <= 0 ||
+    Number(e.target.value) > 100
+  )
+    return;
   box.removeBox();
   box.generateBox(Number(e.target.value));
   box.addListeners(pen.getColor);
@@ -103,14 +119,34 @@ range.addEventListener("change", (e) => {
 const blackOption = document.querySelector(".black");
 blackOption.addEventListener("click", () => {
   pen.setBlack();
+  removeActiveClassFromEveryone();
+  blackOption.classList.add("active");
 });
 
 const gradientOption = document.querySelector(".gradient");
 gradientOption.addEventListener("click", () => {
   pen.setGradient();
+  removeActiveClassFromEveryone();
+  gradientOption.classList.add("active");
 });
 
 const rainbowOption = document.querySelector(".rainbow");
 rainbowOption.addEventListener("click", () => {
   pen.setRainbow();
+  removeActiveClassFromEveryone();
+  rainbowOption.classList.add("active");
 });
+
+const eraserOption = document.querySelector(".eraser");
+eraserOption.addEventListener("click", () => {
+  pen.setEraser();
+  removeActiveClassFromEveryone();
+  eraserOption.classList.add("active");
+});
+
+function removeActiveClassFromEveryone() {
+  blackOption.classList.remove("active");
+  gradientOption.classList.remove("active");
+  rainbowOption.classList.remove("active");
+  eraserOption.classList.remove("active");
+}

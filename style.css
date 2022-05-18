@@ -10,33 +10,118 @@ body {
   font-family: Helvetica, sans-serif;
   font-size: 32px;
   color: black;
-  background-color: orange;
+  background-color: rgba(0, 0, 0, 0.774);
 }
 
-.container {
+main {
+  height: 100vh;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 50px;
 }
 
-.sketch-box {
-  width: clamp(300px, 500px, 700px);
-  height: clamp(300px, 500px, 700px);
+main h1 {
+  font-size: clamp(36px, 42px, 50px);
+  font-weight: 800;
+  color: white;
+  animation: rainbow 2.5s linear;
+  animation-iteration-count: infinite;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
 .options {
   display: flex;
   flex-direction: column;
+  gap: 30px;
+}
+
+.options button {
+  padding: 20px 30px;
+  font-size: clamp(18px, 24px, 27px);
+  font-weight: 600;
+  text-transform: capitalize;
+  border: none;
+  border: 5px solid white;
+  border-radius: 30px;
+  transition: all 0.4s;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.options button.active {
+  box-shadow: rgb(253, 181, 25) 0px 7px 29px 0px !important;
+}
+
+.options button:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.options button:active {
+  transform: translateY(3px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+button.black {
+  background-color: black;
+  color: white;
+}
+
+button.rainbow {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  );
+  color: white;
+}
+
+button.gradient {
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+  color: white;
 }
 
 .box-container {
   height: 100%;
-  background-color: white;
+  background-color: black;
   display: flex;
   flex-direction: column;
   /* flex-basis: 1; */
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+label {
+  font-size: 27px;
+  font-weight: 600;
+  color: white;
+}
+
+.sketch-box {
+  width: clamp(300px, 500px, 700px);
+  height: clamp(300px, 500px, 700px);
 }
 
 .cell-row {
@@ -45,6 +130,46 @@ body {
 }
 
 .cell {
-  border: 1px solid black;
+  border: 2px solid white;
   flex: 1;
+}
+
+@keyframes rainbow {
+  100%,
+  0% {
+    color: rgb(255, 0, 0);
+  }
+  8% {
+    color: rgb(255, 127, 0);
+  }
+  16% {
+    color: rgb(255, 255, 0);
+  }
+  25% {
+    color: rgb(127, 255, 0);
+  }
+  33% {
+    color: rgb(0, 255, 0);
+  }
+  41% {
+    color: rgb(0, 255, 127);
+  }
+  50% {
+    color: rgb(0, 255, 255);
+  }
+  58% {
+    color: rgb(0, 127, 255);
+  }
+  66% {
+    color: rgb(0, 0, 255);
+  }
+  75% {
+    color: rgb(127, 0, 255);
+  }
+  83% {
+    color: rgb(255, 0, 255);
+  }
+  91% {
+    color: rgb(255, 0, 127);
+  }
 }

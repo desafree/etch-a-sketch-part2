@@ -13,10 +13,14 @@
       <h1>ETCH A SKETCH</h1>
       <div class="container">
         <div class="options">
-          <button class="black">black</button>
+          <button class="black active">black</button>
           <button class="gradient">gradient</button>
           <button class="rainbow">rainbow</button>
-          <input type="range" min="1" max="100" value="20" />
+          <button class="eraser">eraser</button>
+          <div class="input-container">
+            <label for="range">Range:</label>
+            <input type="range" min="1" max="100" value="20" id="range" />
+          </div>
         </div>
         <div class="sketch-box"></div>
       </div>
